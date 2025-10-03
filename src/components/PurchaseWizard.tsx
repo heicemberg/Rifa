@@ -683,10 +683,10 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
   // Filter main payment methods (4 methods in 2x2 grid) - prioritize configured methods
   const mainPaymentMethods = configuredPaymentMethods.length > 0
     ? configuredPaymentMethods.filter(method =>
-        ['bancoppel', 'bancoazteca', 'oxxo', 'binance'].includes(method.id)
+        ['banamex', 'bbva', 'oxxo', 'binance'].includes(method.id)
       )
     : PAYMENT_METHODS.filter(method =>
-        ['bancoppel', 'bancoazteca', 'oxxo', 'binance'].includes(method.id)
+        ['banamex', 'bbva', 'oxxo', 'binance'].includes(method.id)
       );
 
   const mexicanStates = [
