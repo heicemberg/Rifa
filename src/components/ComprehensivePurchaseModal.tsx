@@ -59,7 +59,7 @@ interface Props {
   hasDiscount?: boolean;
 }
 
-// Configuración actualizada de métodos de pago con bancos reales mexicanos
+// Configuración de métodos de pago con datos exactos proporcionados
 const paymentMethods = [
   {
     id: 'binance',
@@ -69,7 +69,7 @@ const paymentMethods = [
       type: 'crypto',
       binanceId: '168868614',
       qrCode: '/premios/QR.jpg',
-      instructions: 'Escanea el código QR desde la app Binance o usa el ID: 168868614'
+      instructions: 'Escanea el código QR desde la app Binance o envía al ID: 168868614'
     }
   },
   {
@@ -81,7 +81,7 @@ const paymentMethods = [
       account: '8744427',
       clabe: '002180702087444274',
       holder: 'Egleimis Ollarves',
-      instructions: 'Transferencia bancaria SPEI o depósito en sucursal'
+      instructions: 'Transferencia SPEI o depósito en cualquier sucursal Banamex'
     }
   },
   {
@@ -102,7 +102,7 @@ const paymentMethods = [
     details: {
       type: 'store',
       card: '4152314364090798',
-      instructions: 'Presenta esta tarjeta en cualquier tienda OXXO y paga el monto exacto'
+      instructions: 'Presenta esta referencia en cualquier tienda OXXO y paga el monto exacto'
     }
   }
 ];
@@ -995,7 +995,11 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
               Método de pago
             </h3>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              {paymentMethods.map((method) => (
+              {(() => {
+                console.log('🏦 PAYMENT METHODS COUNT:', paymentMethods.length);
+                console.log('🏦 PAYMENT METHODS:', paymentMethods.map(m => m.id));
+                return paymentMethods;
+              })().map((method) => (
                 <button
                   key={method.id}
                   onClick={() => handlePaymentSelect(method.id)}
@@ -1045,13 +1049,15 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                   <div>
                     <span className="text-sm font-medium text-gray-700 block mb-2">Información para pago:</span>
                     <div className="p-3 bg-white border-2 border-emerald-300 rounded-lg font-mono text-sm text-gray-900 whitespace-pre-line">
-                      {selectedPaymentMethod.id === 'binance' && `Binance ID: ${selectedPaymentMethod.details.binanceId}`}
-                      {selectedPaymentMethod.id === 'oxxo' && `Tarjeta: ${selectedPaymentMethod.details.card}`}
+                      {selectedPaymentMethod.id === 'binance' && `Binance ID: ${selectedPaymentMethod.details.binanceId}\nTeléfono: +523343461630`}
                       {selectedPaymentMethod.id === 'banamex' &&
-                        `Titular: ${selectedPaymentMethod.details.holder}\nCuenta: ${selectedPaymentMethod.details.account}\nCLABE: ${selectedPaymentMethod.details.clabe}`
+                        `Banco Banamex\nTitular: Egleimis Ollarves\nNro cuenta: 8744427\nCuenta clave (CLABE): 002180702087444274\nTeléfono: +523343461630`
                       }
                       {selectedPaymentMethod.id === 'bbva' &&
-                        `Titular: ${selectedPaymentMethod.details.holder}\nTarjeta: ${selectedPaymentMethod.details.card}`
+                        `BBVA México\nTitular: Egliskar Ollarves\nTarjeta: 4152314364090798\nTeléfono: +523343461630`
+                      }
+                      {selectedPaymentMethod.id === 'oxxo' &&
+                        `OXXO\nReferencia: 4152314364090798\nTeléfono: +523343461630`
                       }
                     </div>
                   </div>
