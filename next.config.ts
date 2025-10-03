@@ -67,14 +67,29 @@ const nextConfig: NextConfig = {
   // Configuración para archivos estáticos
   assetPrefix: '',
   basePath: '',
-  
+
   // SWC minification is enabled by default in Next.js 15
-  
+
   // Configuración de compresión
   compress: true,
-  
+
   // Configuración para páginas de error personalizadas
   generateEtags: false,
+
+  // Headers para forzar recarga de logos SVG
+  async headers() {
+    return [
+      {
+        source: '/logos/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
