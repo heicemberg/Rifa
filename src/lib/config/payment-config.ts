@@ -52,7 +52,7 @@ const PAYMENT_CONFIG: PaymentConfig = {
     {
       id: 'oxxo' as PaymentMethodType,
       name: 'OXXO',
-      icon: '/logos/oxxo.png',
+      icon: '/logos/oxxo.svg',
       account: process.env.NEXT_PUBLIC_OXXO_REF_DEV || 'RIF-SIL-2024-001',
       accountDetails: `Referencia OXXO: ${process.env.NEXT_PUBLIC_OXXO_REF_DEV || 'RIF-SIL-2024-001'}\nMonto exacto del pago\nConserva tu comprobante`,
       enabled: true,
@@ -92,7 +92,7 @@ const PAYMENT_CONFIG: PaymentConfig = {
     {
       id: 'oxxo' as PaymentMethodType,
       name: 'OXXO',
-      icon: '/logos/oxxo.png',
+      icon: '/logos/oxxo.svg',
       account: process.env.NEXT_PUBLIC_OXXO_REF_PROD || '4152314364090798',
       accountDetails: `Tarjeta para pago en OXXO: ${process.env.NEXT_PUBLIC_OXXO_REF_PROD || '4152314364090798'}\nMonto exacto del pago\nConserva tu comprobante`,
       enabled: true,

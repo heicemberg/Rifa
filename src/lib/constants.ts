@@ -145,7 +145,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
   {
     id: 'oxxo' as PaymentMethodType,
     name: 'OXXO',
-    icon: '/logos/oxxo.png',
+    icon: '/logos/oxxo.svg',
     account: '4152314364090798',
     accountDetails: 'Tarjeta para pago en OXXO: 4152314364090798\nMonto exacto del pago\nConserva tu comprobante',
     enabled: true
