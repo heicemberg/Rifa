@@ -1,13 +1,10 @@
 [build]
   publish = "dist"
   command = "npm run build"
-  
+
 # Variables de entorno para build y runtime - PROTEGIDAS
 # IMPORTANTE: Las credenciales reales se configuran en Netlify UI por seguridad
 [context.production.environment]
-  # Las credenciales de Supabase se configuran en Netlify UI (no aquí por seguridad)
-  # NEXT_PUBLIC_SUPABASE_URL = [SET_IN_NETLIFY_UI]
-  # NEXT_PUBLIC_SUPABASE_ANON_KEY = [SET_IN_NETLIFY_UI]
   NODE_VERSION = "20"
   NPM_VERSION = "10"
   NEXT_TELEMETRY_DISABLED = "1"
@@ -15,9 +12,10 @@
 
 # Variables para branch deploys - PROTEGIDAS
 [context.branch-deploy.environment]
-  # Las credenciales de Supabase se configuran en Netlify UI (no aquí por seguridad)
-  # NEXT_PUBLIC_SUPABASE_URL = [SET_IN_NETLIFY_UI]
-  # NEXT_PUBLIC_SUPABASE_ANON_KEY = [SET_IN_NETLIFY_UI]
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
+  NEXT_TELEMETRY_DISABLED = "1"
+  DISABLE_TRACE = "1"
 
 # Variables de build genéricas - SIN CREDENCIALES
 [build.environment]
@@ -25,11 +23,10 @@
   NPM_VERSION = "10"
   NEXT_TELEMETRY_DISABLED = "1"
   DISABLE_TRACE = "1"
-  # Las credenciales de Supabase se configuran en Netlify UI por seguridad
 
 [build.processing]
   skip_processing = false
-  
+
 [build.processing.css]
   bundle = true
   minify = true
@@ -49,31 +46,25 @@
   to = "/index.html"
   status = 200
 
+# Security headers for all pages
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff" 
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    # CSP optimizado para Supabase - SIN EXPONER CREDENCIALES ESPECÍFICAS
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com; media-src 'self' https://*.supabase.co"
-    # Protección XSS avanzada
-    X-XSS-Protection = "1; mode=block"
-    # Protección contra clickjacking
-    X-Frame-Options = "DENY"
-    # Protección MIME sniffing
     X-Content-Type-Options = "nosniff"
-    # Strict Transport Security
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    # Permissions Policy
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com; media-src 'self' https://*.supabase.co"
 
+# Cache headers for static assets
 [[headers]]
   for = "/dist/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-[[headers]]  
+[[headers]]
   for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
