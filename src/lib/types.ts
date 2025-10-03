@@ -63,7 +63,7 @@ export interface Customer {
 /**
  * Tipos de métodos de pago disponibles en México
  */
-export type PaymentMethodType = 'binance' | 'bancoppel' | 'bancoazteca' | 'oxxo';
+export type PaymentMethodType = 'binance' | 'banamex' | 'bbva' | 'oxxo';
 
 /**
  * Interface para un método de pago
@@ -249,7 +249,7 @@ export interface PaginatedResponse<T> {
 // Constantes útiles
 export const TICKET_STATUSES: TicketStatus[] = ['available', 'selected', 'reserved', 'sold'];
 export const CUSTOMER_STATUSES: CustomerStatus[] = ['pending', 'verified', 'rejected'];
-export const PAYMENT_METHOD_TYPES: PaymentMethodType[] = ['binance', 'bancoppel', 'bancoazteca', 'oxxo'];
+export const PAYMENT_METHOD_TYPES: PaymentMethodType[] = ['binance', 'banamex', 'bbva', 'oxxo'];
 
 /**
  * Función helper para formatear número de ticket

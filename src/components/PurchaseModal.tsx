@@ -515,7 +515,7 @@ const PurchaseModal: React.FC<PurchaseModalProps> = ({
                     value={userDetails.whatsapp}
                     onChange={(e) => setUserDetails(prev => ({ ...prev, whatsapp: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="+52 55 1234 5678"
+                    placeholder="+523343461630"
                   />
                 </div>
 

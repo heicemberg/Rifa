@@ -40,19 +40,19 @@ const PAYMENT_CONFIG: PaymentConfig = {
       enabled: true
     },
     {
-      id: 'bancoppel' as PaymentMethodType,
-      name: 'BanCoppel',
-      icon: '/logos/bancoppel.png',
-      account: process.env.NEXT_PUBLIC_BANCOPPEL_CARD_DEV || '4169 1598 7643 2108',
-      accountDetails: `Tarjeta: ${process.env.NEXT_PUBLIC_BANCOPPEL_CARD_DEV || '4169 1598 7643 2108'}\nTitular: ${process.env.NEXT_PUBLIC_BANCOPPEL_OWNER_DEV || 'RIFA SILVERADO 2024'}\nCLABE: ${process.env.NEXT_PUBLIC_BANCOPPEL_CLABE_DEV || '137180000123456789'}`,
+      id: 'banamex' as PaymentMethodType,
+      name: 'Banco Banamex',
+      icon: '/logos/banamex.svg',
+      account: process.env.NEXT_PUBLIC_BANAMEX_ACCOUNT_DEV || '8744427',
+      accountDetails: `Titular: ${process.env.NEXT_PUBLIC_BANAMEX_OWNER_DEV || 'Egleimis Ollarves'}\nCuenta: ${process.env.NEXT_PUBLIC_BANAMEX_ACCOUNT_DEV || '8744427'}\nCLABE: ${process.env.NEXT_PUBLIC_BANAMEX_CLABE_DEV || '002180702087444274'}\nBanco: Banamex`,
       enabled: true
     },
     {
-      id: 'bancoazteca' as PaymentMethodType,
-      name: 'Banco Azteca',
-      icon: '/logos/bancoazteca.png',
-      account: process.env.NEXT_PUBLIC_AZTECA_CARD_DEV || '5204 8765 4321 0987',
-      accountDetails: `Tarjeta: ${process.env.NEXT_PUBLIC_AZTECA_CARD_DEV || '5204 8765 4321 0987'}\nTitular: ${process.env.NEXT_PUBLIC_AZTECA_OWNER_DEV || 'RIFA SILVERADO 2024'}\nCLABE: ${process.env.NEXT_PUBLIC_AZTECA_CLABE_DEV || '127180000987654321'}`,
+      id: 'bbva' as PaymentMethodType,
+      name: 'BBVA México',
+      icon: '/logos/bbva.svg',
+      account: process.env.NEXT_PUBLIC_BBVA_CARD_DEV || '4152314364090798',
+      accountDetails: `Titular: ${process.env.NEXT_PUBLIC_BBVA_OWNER_DEV || 'Egliskar Ollarves'}\nTarjeta: ${process.env.NEXT_PUBLIC_BBVA_CARD_DEV || '4152314364090798'}`,
       enabled: true
     },
     {
@@ -71,33 +71,33 @@ const PAYMENT_CONFIG: PaymentConfig = {
       id: 'binance' as PaymentMethodType,
       name: 'Binance Pay',
       icon: '/logos/binance.svg',
-      account: process.env.NEXT_PUBLIC_BINANCE_EMAIL_PROD || '',
-      accountDetails: `Email Binance Pay: ${process.env.NEXT_PUBLIC_BINANCE_EMAIL_PROD || ''}`,
-      enabled: !!process.env.NEXT_PUBLIC_BINANCE_EMAIL_PROD
+      account: process.env.NEXT_PUBLIC_BINANCE_ID_PROD || '168868614',
+      accountDetails: `Binance ID: ${process.env.NEXT_PUBLIC_BINANCE_ID_PROD || '168868614'}\nEscanea el código QR desde la app Binance`,
+      enabled: true
     },
     {
-      id: 'bancoppel' as PaymentMethodType,
-      name: 'BanCoppel',
-      icon: '/logos/bancoppel.png',
-      account: process.env.NEXT_PUBLIC_BANCOPPEL_CARD_PROD || '',
-      accountDetails: `Tarjeta: ${process.env.NEXT_PUBLIC_BANCOPPEL_CARD_PROD || ''}\nTitular: ${process.env.NEXT_PUBLIC_BANCOPPEL_OWNER_PROD || ''}\nCLABE: ${process.env.NEXT_PUBLIC_BANCOPPEL_CLABE_PROD || ''}`,
-      enabled: !!process.env.NEXT_PUBLIC_BANCOPPEL_CARD_PROD
+      id: 'banamex' as PaymentMethodType,
+      name: 'Banco Banamex',
+      icon: '/logos/banamex.svg',
+      account: process.env.NEXT_PUBLIC_BANAMEX_ACCOUNT_PROD || '8744427',
+      accountDetails: `Titular: ${process.env.NEXT_PUBLIC_BANAMEX_OWNER_PROD || 'Egleimis Ollarves'}\nCuenta: ${process.env.NEXT_PUBLIC_BANAMEX_ACCOUNT_PROD || '8744427'}\nCLABE: ${process.env.NEXT_PUBLIC_BANAMEX_CLABE_PROD || '002180702087444274'}\nBanco: Banamex`,
+      enabled: true
     },
     {
-      id: 'bancoazteca' as PaymentMethodType,
-      name: 'Banco Azteca',
-      icon: '/logos/bancoazteca.png',
-      account: process.env.NEXT_PUBLIC_AZTECA_CARD_PROD || '',
-      accountDetails: `Tarjeta: ${process.env.NEXT_PUBLIC_AZTECA_CARD_PROD || ''}\nTitular: ${process.env.NEXT_PUBLIC_AZTECA_OWNER_PROD || ''}\nCLABE: ${process.env.NEXT_PUBLIC_AZTECA_CLABE_PROD || ''}`,
-      enabled: !!process.env.NEXT_PUBLIC_AZTECA_CARD_PROD
+      id: 'bbva' as PaymentMethodType,
+      name: 'BBVA México',
+      icon: '/logos/bbva.svg',
+      account: process.env.NEXT_PUBLIC_BBVA_CARD_PROD || '4152314364090798',
+      accountDetails: `Titular: ${process.env.NEXT_PUBLIC_BBVA_OWNER_PROD || 'Egliskar Ollarves'}\nTarjeta: ${process.env.NEXT_PUBLIC_BBVA_CARD_PROD || '4152314364090798'}`,
+      enabled: true
     },
     {
       id: 'oxxo' as PaymentMethodType,
       name: 'OXXO',
       icon: '/logos/oxxo.png',
-      account: process.env.NEXT_PUBLIC_OXXO_REF_PROD || '',
-      accountDetails: `Referencia OXXO: ${process.env.NEXT_PUBLIC_OXXO_REF_PROD || ''}\nMonto exacto del pago\nConserva tu comprobante`,
-      enabled: !!process.env.NEXT_PUBLIC_OXXO_REF_PROD
+      account: process.env.NEXT_PUBLIC_OXXO_REF_PROD || '4152314364090798',
+      accountDetails: `Tarjeta para pago en OXXO: ${process.env.NEXT_PUBLIC_OXXO_REF_PROD || '4152314364090798'}\nMonto exacto del pago\nConserva tu comprobante`,
+      enabled: true
     }
   ]
 };
@@ -169,14 +169,14 @@ export const validatePaymentConfig = (): { valid: boolean; missing: string[] } =
   if (env === 'production') {
     // Validar variables de entorno de producción
     const requiredVars = [
-      'NEXT_PUBLIC_BINANCE_EMAIL_PROD',
-      'NEXT_PUBLIC_BANCOPPEL_CARD_PROD',
-      'NEXT_PUBLIC_BANCOPPEL_OWNER_PROD',
-      'NEXT_PUBLIC_BANCOPPEL_CLABE_PROD',
-      'NEXT_PUBLIC_AZTECA_CARD_PROD',
-      'NEXT_PUBLIC_AZTECA_OWNER_PROD',
-      'NEXT_PUBLIC_AZTECA_CLABE_PROD',
-      'NEXT_PUBLIC_OXXO_REF_PROD'
+      'NEXT_PUBLIC_BINANCE_ID_PROD',
+      'NEXT_PUBLIC_BANAMEX_ACCOUNT_PROD',
+      'NEXT_PUBLIC_BANAMEX_OWNER_PROD',
+      'NEXT_PUBLIC_BANAMEX_CLABE_PROD',
+      'NEXT_PUBLIC_BBVA_CARD_PROD',
+      'NEXT_PUBLIC_BBVA_OWNER_PROD',
+      'NEXT_PUBLIC_OXXO_REF_PROD',
+      'NEXT_PUBLIC_CONTACT_PHONE_PROD'
     ];
 
     for (const varName of requiredVars) {

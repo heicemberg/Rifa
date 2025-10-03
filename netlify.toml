@@ -2,33 +2,30 @@
   publish = "dist"
   command = "npm run build"
   
-# Variables de entorno para build y runtime
-# SOLUCIÓN IPv6: Cambio de Direct Connection a Supavisor Pooler (IPv4 compatible con Netlify)
+# Variables de entorno para build y runtime - PROTEGIDAS
+# IMPORTANTE: Las credenciales reales se configuran en Netlify UI por seguridad
 [context.production.environment]
-  NEXT_PUBLIC_SUPABASE_URL = "https://ugmfmnwbynppdzkhvrih.supabase.co"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWZtbndieW5wcGR6a2h2cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODE4NzAsImV4cCI6MjA3MTQ1Nzg3MH0.MTNKqQCzmRETjULZ2PRx8mTK3hpR90tn6Pz36h1nMR4"
-  # NUEVA CONFIGURACIÓN: Usar Database Connection String con Pooler IPv4
-  NEXT_PUBLIC_SUPABASE_DB_URL = "postgresql://postgres.ugmfmnwbynppdzkhvrih:[DB-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
+  # Las credenciales de Supabase se configuran en Netlify UI (no aquí por seguridad)
+  # NEXT_PUBLIC_SUPABASE_URL = [SET_IN_NETLIFY_UI]
+  # NEXT_PUBLIC_SUPABASE_ANON_KEY = [SET_IN_NETLIFY_UI]
   NODE_VERSION = "20"
   NPM_VERSION = "10"
   NEXT_TELEMETRY_DISABLED = "1"
   DISABLE_TRACE = "1"
 
-# Variables para branch deploys
+# Variables para branch deploys - PROTEGIDAS
 [context.branch-deploy.environment]
-  NEXT_PUBLIC_SUPABASE_URL = "https://ugmfmnwbynppdzkhvrih.supabase.co"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWZtbndieW5wcGR6a2h2cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODE4NzAsImV4cCI6MjA3MTQ1Nzg3MH0.MTNKqQCzmRETjULZ2PRx8mTK3hpR90tn6Pz36h1nMR4"
-  NEXT_PUBLIC_SUPABASE_DB_URL = "postgresql://postgres.ugmfmnwbynppdzkhvrih:[DB-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
+  # Las credenciales de Supabase se configuran en Netlify UI (no aquí por seguridad)
+  # NEXT_PUBLIC_SUPABASE_URL = [SET_IN_NETLIFY_UI]
+  # NEXT_PUBLIC_SUPABASE_ANON_KEY = [SET_IN_NETLIFY_UI]
 
-# Variables de build genéricas
+# Variables de build genéricas - SIN CREDENCIALES
 [build.environment]
   NODE_VERSION = "20"
   NPM_VERSION = "10"
   NEXT_TELEMETRY_DISABLED = "1"
   DISABLE_TRACE = "1"
-  # Variables de Supabase necesarias para build
-  NEXT_PUBLIC_SUPABASE_URL = "https://ugmfmnwbynppdzkhvrih.supabase.co"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWZtbndieW5wcGR6a2h2cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODE4NzAsImV4cCI6MjA3MTQ1Nzg3MH0.MTNKqQCzmRETjULZ2PRx8mTK3hpR90tn6Pz36h1nMR4"
+  # Las credenciales de Supabase se configuran en Netlify UI por seguridad
 
 [build.processing]
   skip_processing = false
@@ -58,8 +55,18 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff" 
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # CSP optimizado para Supabase - CRÍTICO para evitar errores de conexión
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://ugmfmnwbynppdzkhvrih.supabase.co wss://ugmfmnwbynppdzkhvrih.supabase.co https://www.google-analytics.com; media-src 'self' https://ugmfmnwbynppdzkhvrih.supabase.co"
+    # CSP optimizado para Supabase - SIN EXPONER CREDENCIALES ESPECÍFICAS
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com; media-src 'self' https://*.supabase.co"
+    # Protección XSS avanzada
+    X-XSS-Protection = "1; mode=block"
+    # Protección contra clickjacking
+    X-Frame-Options = "DENY"
+    # Protección MIME sniffing
+    X-Content-Type-Options = "nosniff"
+    # Strict Transport Security
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Permissions Policy
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
 
 [[headers]]
   for = "/dist/_next/static/*"

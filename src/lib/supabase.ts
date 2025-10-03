@@ -3,13 +3,14 @@
 // Usa la versión optimizada para SSG (Static Site Generation)
 // ============================================================================
 
-// SOLUCIÓN DEFINITIVA PARA IPv6/NETLIFY: Usar cliente especializado
-import { 
+// CONFIGURACIÓN SEGURA DE SUPABASE CON CREDENCIALES PROTEGIDAS
+import {
   netlifySupabaseClient,
   createNetlifyCompatibleSupabaseClient,
   testNetlifySupabaseConnection,
   resetNetlifyClient
 } from './supabase-netlify-fix';
+import { getSupabaseConfig, validateConfig } from '../../lib/secure-config';
 
 // Cliente principal optimizado para Netlify
 export const supabase = netlifySupabaseClient;

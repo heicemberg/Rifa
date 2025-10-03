@@ -60,49 +60,48 @@ interface Props {
 }
 
 const paymentMethods = [
-  { 
-    id: 'binance', 
-    name: 'Binance Pay', 
+  {
+    id: 'binance',
+    name: 'Binance Pay',
     logo: '/logos/binance.svg',
     details: {
       type: 'crypto',
-      address: 'TQhPr3q4K5zJ8xVm2nF7wX9pL4uY6tR3sA',
-      network: 'TRC20 (USDT)',
-      instructions: 'Envía el monto exacto en USDT a la dirección mostrada'
+      binanceId: '168868614',
+      qrCode: '/premios/QR.jpg',
+      instructions: 'Escanea el código QR desde la app Binance o usa el ID: 168868614'
     }
   },
-  { 
-    id: 'oxxo', 
-    name: 'OXXO', 
+  {
+    id: 'oxxo',
+    name: 'OXXO',
     logo: '/logos/oxxo.png',
     details: {
       type: 'store',
-      reference: 'RIFA-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
-      instructions: 'Presenta esta referencia en cualquier tienda OXXO y paga el monto exacto'
+      card: '4152314364090798',
+      instructions: 'Presenta esta tarjeta en cualquier tienda OXXO y paga el monto exacto'
     }
   },
-  { 
-    id: 'azteca', 
-    name: 'Banco Azteca', 
-    logo: '/logos/bancoazteca.png',
+  {
+    id: 'banamex',
+    name: 'Banco Banamex',
+    logo: '/logos/banamex.svg',
     details: {
       type: 'bank',
-      account: '5204 1234 5678 9012',
-      clabe: '127180012345678901',
-      holder: 'RIFAS MEXICANAS SA DE CV',
+      account: '8744427',
+      clabe: '002180702087444274',
+      holder: 'Egleimis Ollarves',
       instructions: 'Transferencia bancaria o depósito en sucursal'
     }
   },
-  { 
-    id: 'bancoppel', 
-    name: 'BanCoppel', 
-    logo: '/logos/bancoppel.png',
+  {
+    id: 'bbva',
+    name: 'BBVA México',
+    logo: '/logos/bbva.svg',
     details: {
       type: 'bank',
-      account: '4152 3140 0987 6543',
-      clabe: '137180098765432109',
-      holder: 'RIFAS MEXICANAS SA DE CV',
-      instructions: 'Transferencia SPEI o depósito en ventanilla'
+      card: '4152314364090798',
+      holder: 'Egliskar Ollarves',
+      instructions: 'Transferencia SPEI, depósito en ventanilla o pago con tarjeta'
     }
   }
 ];
@@ -1213,7 +1212,7 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                   value={customerData.telefono}
                   onChange={(e) => handleInputChange('telefono', e.target.value)}
                   className="w-full p-2.5 sm:p-2 border border-gray-300 rounded-lg focus:border-emerald-500 focus:outline-none text-sm"
-                  placeholder="+52 55 1234 5678"
+                  placeholder="+523343461630"
                 />
                 {errors.telefono && <p className="text-red-500 text-xs mt-1">{errors.telefono}</p>}
               </div>

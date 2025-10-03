@@ -30,10 +30,7 @@ const nextConfig: NextConfig = {
     disableOptimizedLoading: true,
   },
 
-  // Deshabilitar telemetría completamente
-  telemetry: {
-    enabled: false,
-  },
+  // Telemetría se deshabilitó (deprecated en Next.js 15)
   
   // Deshabilitar generación de build traces para evitar errores de permisos
   generateBuildId: () => 'build',

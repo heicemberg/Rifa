@@ -184,7 +184,7 @@ export const metadata: Metadata = {
   
   // Información de contacto
   other: {
-    'contact:phone_number': '+52-55-1234-5678',
+    'contact:phone_number': '+523343461630',
     'contact:email': 'info@rifa-silverado.mx',
     'contact:country_name': 'México',
     'contact:region': 'CDMX'
@@ -212,7 +212,7 @@ const structuredData = {
       },
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+52-55-1234-5678',
+        telephone: '+523343461630',
         contactType: 'customer service',
         areaServed: 'MX',
         availableLanguage: 'Spanish'
@@ -403,7 +403,7 @@ export default function RootLayout({
               ofrecerte la mejor experiencia y garantizar la seguridad de tu compra.
             </p>
             <p style={{ fontSize: '14px', marginTop: '16px', opacity: 0.8 }}>
-              Si necesitas ayuda, contacta con nosotros: +52-55-1234-5678
+              Si necesitas ayuda, contacta con nosotros: +523343461630
             </p>
           </div>
         </noscript>
@@ -510,10 +510,11 @@ export default function RootLayout({
 
         {/* Preload de recursos críticos */}
         <link rel="preload" href="/premios/premio-rifa.png" as="image" />
-        <link rel="preload" href="/logos/bancoppel.png" as="image" />
-        <link rel="preload" href="/logos/bancoazteca.png" as="image" />
+        <link rel="preload" href="/logos/banamex.svg" as="image" />
+        <link rel="preload" href="/logos/bbva.svg" as="image" />
         <link rel="preload" href="/logos/oxxo.png" as="image" />
         <link rel="preload" href="/logos/binance.svg" as="image" />
+        <link rel="preload" href="/premios/QR.jpg" as="image" />
       </body>
     </html>
   );

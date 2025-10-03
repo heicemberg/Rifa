@@ -688,29 +688,29 @@ export default function NewRaffePage() {
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
                     <Image
-                      src="/logos/bancoppel.png"
-                      alt="BanCoppel"
+                      src="/logos/banamex.svg"
+                      alt="Banco Banamex"
                       width={200}
                       height={120}
                       className="object-contain"
                     />
                   </div>
-                  <div className="text-gray-800 font-bold text-sm">BanCoppel</div>
+                  <div className="text-gray-800 font-bold text-sm">Banamex</div>
                   <div className="text-gray-600 text-xs">Transferencia</div>
                 </div>
-                
+
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
                     <Image
-                      src="/logos/bancoazteca.png"
-                      alt="Banco Azteca"
+                      src="/logos/bbva.svg"
+                      alt="BBVA México"
                       width={200}
                       height={140}
                       className="object-contain"
                     />
                   </div>
-                  <div className="text-gray-800 font-bold text-sm">Banco Azteca</div>
-                  <div className="text-gray-600 text-xs">Depósito</div>
+                  <div className="text-gray-800 font-bold text-sm">BBVA México</div>
+                  <div className="text-gray-600 text-xs">Transferencia</div>
                 </div>
                 
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
@@ -805,7 +805,7 @@ export default function NewRaffePage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-gray-400 text-sm">
                   <span>📱</span>
-                  <span>WhatsApp: +52 55 1234 5678</span>
+                  <span>WhatsApp: +523343461630</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-400 text-sm">
                   <span>📧</span>

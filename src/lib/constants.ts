@@ -122,32 +122,32 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
     id: 'binance' as PaymentMethodType,
     name: 'Binance Pay',
     icon: '/logos/binance.svg',
-    account: 'rifadesilverado2024@gmail.com',
-    accountDetails: 'Email Binance Pay: rifadesilverado2024@gmail.com',
+    account: '168868614',
+    accountDetails: 'Binance ID: 168868614\nEscanea el código QR desde la app Binance',
     enabled: true
   },
   {
-    id: 'bancoppel' as PaymentMethodType,
-    name: 'BanCoppel',
-    icon: '/logos/bancoppel.png',
-    account: '4169 1598 7643 2108',
-    accountDetails: 'Tarjeta: 4169 1598 7643 2108\nTitular: RIFA SILVERADO 2024\nCLABE: 137180000123456789',
+    id: 'banamex' as PaymentMethodType,
+    name: 'Banco Banamex',
+    icon: '/logos/banamex.svg',
+    account: '8744427',
+    accountDetails: 'Titular: Egleimis Ollarves\nCuenta: 8744427\nCLABE: 002180702087444274\nBanco: Banamex',
     enabled: true
   },
   {
-    id: 'bancoazteca' as PaymentMethodType,
-    name: 'Banco Azteca',
-    icon: '/logos/bancoazteca.png',
-    account: '5204 8765 4321 0987',
-    accountDetails: 'Tarjeta: 5204 8765 4321 0987\nTitular: RIFA SILVERADO 2024\nCLABE: 127180000987654321',
+    id: 'bbva' as PaymentMethodType,
+    name: 'BBVA México',
+    icon: '/logos/bbva.svg',
+    account: '4152314364090798',
+    accountDetails: 'Titular: Egliskar Ollarves\nTarjeta: 4152314364090798',
     enabled: true
   },
   {
     id: 'oxxo' as PaymentMethodType,
     name: 'OXXO',
     icon: '/logos/oxxo.png',
-    account: 'RIF-SIL-2024-001',
-    accountDetails: 'Referencia OXXO: RIF-SIL-2024-001\nMonto exacto del pago\nConserva tu comprobante',
+    account: '4152314364090798',
+    accountDetails: 'Tarjeta para pago en OXXO: 4152314364090798\nMonto exacto del pago\nConserva tu comprobante',
     enabled: true
   }
 ];
@@ -346,6 +346,9 @@ export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Patrón para validar WhatsApp mexicano (formato: +52 seguido de 10 dígitos) */
 export const MEXICAN_WHATSAPP_REGEX = /^\+52\d{10}$/;
+
+/** Número de WhatsApp de contacto */
+export const CONTACT_WHATSAPP = '+523343461630';
 
 // ============================================================================
 // MENSAJES Y TEXTOS PREDETERMINADOS

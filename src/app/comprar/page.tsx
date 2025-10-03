@@ -312,7 +312,7 @@ const DatosStep: React.FC<{
                 'border-gray-300': !errors.whatsapp
               }
             )}
-            placeholder="+52 55 1234 5678"
+            placeholder="+523343461630"
             disabled={loading}
           />
           {errors.whatsapp && (
@@ -442,7 +442,7 @@ const PagoStep: React.FC<{
           </div>
         )}
 
-        {(method.id === 'bancoppel' || method.id === 'bancoazteca') && (
+        {(method.id === 'banamex' || method.id === 'bbva') && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <ol className="space-y-2 text-sm">
               <li><strong>1.</strong> Transfiere desde tu app bancaria</li>
@@ -767,7 +767,7 @@ export default function CheckoutPage() {
     name: '',
     email: '',
     whatsapp: '',
-    paymentMethod: 'bancoppel'
+    paymentMethod: 'banamex'
   });
   const [errors, setErrors] = useState<FormErrors>({});
 

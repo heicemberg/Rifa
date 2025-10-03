@@ -9,22 +9,30 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // CONFIGURACIÓN DE CONNECTION STRINGS
 // ============================================================================
 
-const SUPABASE_CONFIG = {
-  PROJECT_REF: 'ugmfmnwbynppdzkhvrih',
-  ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-  
-  // Connection Strings según documentación oficial Supabase
-  URLS: {
-    // Direct Connection - IPv6 (default para browsers con soporte IPv6)
-    DIRECT: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    
-    // Supavisor Session Pooler - IPv4 (para serverless/Netlify) - puerto 5432
-    POOLER_SESSION: 'https://aws-0-us-east-1.pooler.supabase.com',
-    
-    // Supavisor Transaction Pooler - IPv4 (para edge functions) - puerto 6543
-    POOLER_TRANSACTION: 'https://aws-0-us-east-1.pooler.supabase.com'
-  }
-};
+// Importar configuración segura
+import { getSupabaseConfig } from '../../lib/secure-config';
+
+function getSecureSupabaseConfig() {
+  const config = getSupabaseConfig();
+  return {
+    PROJECT_REF: '[SECURE-PROJECT-REF]',
+    ANON_KEY: config.anonKey,
+
+    // Connection Strings según documentación oficial Supabase
+    URLS: {
+      // Direct Connection - IPv6 (default para browsers con soporte IPv6)
+      DIRECT: config.url,
+
+      // Supavisor Session Pooler - IPv4 (para serverless/Netlify) - puerto 5432
+      POOLER_SESSION: 'https://aws-0-us-east-1.pooler.supabase.com',
+
+      // Supavisor Transaction Pooler - IPv4 (para edge functions) - puerto 6543
+      POOLER_TRANSACTION: 'https://aws-0-us-east-1.pooler.supabase.com'
+    }
+  };
+}
+
+const SUPABASE_CONFIG = getSecureSupabaseConfig();
 
 // ============================================================================
 // DETECCIÓN DE ENTORNO

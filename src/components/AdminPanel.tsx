@@ -390,7 +390,7 @@ export default function AdminPanel() {
         id: '1',
         nombre: 'Juan Carlos',
         apellidos: 'Pérez García',
-        telefono: '+52 55 1234 5678',
+        telefono: '+523343461630',
         email: 'juan.perez@email.com',
         estado: 'CDMX',
         ciudad: 'Ciudad de México',

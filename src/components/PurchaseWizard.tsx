@@ -2750,7 +2750,7 @@ const CustomerDataStep: React.FC<CustomerDataStepProps> = ({
                     ? 'border-red-300 focus:ring-red-200/50 focus:border-red-500 shadow-red-100'
                     : 'border-slate-300/60 focus:ring-emerald-200/60 focus:border-emerald-500 hover:border-emerald-300/80 shadow-lg'
                 )}
-                placeholder="+52 55 1234 5678"
+                placeholder="+523343461630"
                 autoComplete="tel"
               />
               {customerData.phone && !validationErrors.phone && (
