@@ -512,7 +512,7 @@ export default function RootLayout({
         <link rel="preload" href="/premios/premio-rifa.png" as="image" />
         <link rel="preload" href="/logos/banamex.svg" as="image" />
         <link rel="preload" href="/logos/bbva.svg" as="image" />
-        <link rel="preload" href="/logos/oxxo.png" as="image" />
+        <link rel="preload" href="/logos/oxxo.svg" as="image" />
         <link rel="preload" href="/logos/binance.svg" as="image" />
         <link rel="preload" href="/premios/QR.jpg" as="image" />
       </body>

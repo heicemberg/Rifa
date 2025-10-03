@@ -716,7 +716,7 @@ export default function NewRaffePage() {
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
                     <Image
-                      src="/logos/oxxo.png"
+                      src="/logos/oxxo.svg"
                       alt="OXXO"
                       width={100}
                       height={60}

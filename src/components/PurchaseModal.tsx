@@ -54,23 +54,23 @@ const PAYMENT_METHODS: PaymentMethod[] = [
     details: 'Email Binance Pay: rifadesilverado2024@gmail.com\nEnvía el monto exacto y conserva el comprobante'
   },
   {
-    id: 'bancoppel',
-    name: 'BanCoppel',
-    icon: '/logos/bancoppel.png',
-    account: '4169 1598 7643 2108',
-    details: 'Tarjeta: 4169 1598 7643 2108\nTitular: RIFA SILVERADO 2024\nCLABE: 137180000123456789\nEnvía el monto exacto'
+    id: 'banamex',
+    name: 'Banco Banamex',
+    icon: '/logos/banamex.svg',
+    account: '8744427',
+    details: 'Banco Banamex\nCuenta: 8744427\nCLABE: 002180702087444274\nTitular: Egleimis Ollarves'
   },
   {
-    id: 'bancoazteca',
-    name: 'Banco Azteca',
-    icon: '/logos/bancoazteca.png',
-    account: '5204 8765 4321 0987',
-    details: 'Tarjeta: 5204 8765 4321 0987\nTitular: RIFA SILVERADO 2024\nCLABE: 127180000987654321\nEnvía el monto exacto'
+    id: 'bbva',
+    name: 'BBVA México',
+    icon: '/logos/bbva.svg',
+    account: '4152314364090798',
+    details: 'BBVA México\nTarjeta: 4152314364090798\nTitular: Egliskar Ollarves'
   },
   {
     id: 'oxxo',
     name: 'OXXO',
-    icon: '/logos/oxxo.png',
+    icon: '/logos/oxxo.svg',
     account: 'RIF-SIL-2024-001',
     details: 'Referencia OXXO: RIF-SIL-2024-001\nMonto exacto del pago\nConserva tu comprobante\nVe a cualquier OXXO'
   }
