@@ -140,7 +140,7 @@ export function createNetlifyCompatibleSupabaseClient(): SupabaseClient {
           
           // Log para debugging en Netlify
           const urlString = typeof input === 'string' ? input : input instanceof URL ? input.toString() : 'request';
-          console.log(`📡 Supabase request: ${urlString.substring(0, 50)}... → ${response.status}`);
+          console.log(`📡 Supabase request: ${urlString ? urlString.substring(0, 50) + '...' : 'unknown'} → ${response.status}`);
           
           return response;
         } catch (error) {
@@ -154,7 +154,7 @@ export function createNetlifyCompatibleSupabaseClient(): SupabaseClient {
   };
   
   console.log('🚀 Creating Netlify-compatible Supabase client:', {
-    url: url.substring(0, 40) + '...',
+    url: url ? url.substring(0, 40) + '...' : 'URL_NOT_SET',
     environment: env,
     config: 'netlify-optimized'
   });

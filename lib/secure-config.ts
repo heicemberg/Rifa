@@ -21,9 +21,21 @@ export function getSupabaseConfig() {
 
   if (env === 'production') {
     // En producción, usar variables de entorno reales
+    const prodUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const prodKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    // Si no están configuradas en Netlify, usar fallback
+    if (!prodUrl || !prodKey) {
+      console.log('⚠️ Variables de entorno no configuradas en Netlify, usando fallback');
+      return {
+        url: 'https://ugmfmnwbynppdzkhvrih.supabase.co',
+        anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnbWZtbndieW5wcGR6a2h2cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU4ODE4NzAsImV4cCI6MjA3MTQ1Nzg3MH0.MTNKqQCzmRETjULZ2PRx8mTK3hpR90tn6Pz36h1nMR4'
+      };
+    }
+
     return {
-      url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      url: prodUrl,
+      anonKey: prodKey,
     };
   } else {
     // En desarrollo, usar las credenciales reales pero de manera controlada
