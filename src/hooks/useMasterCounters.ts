@@ -157,30 +157,37 @@ const fetchRealData = async (): Promise<{ sold: number; reserved: number }> => {
   try {
     if (!supabase) throw new Error('Supabase no inicializado');
 
-    console.log('🔍 FETCHING REAL DATA: Querying tickets table...');
+    console.log('🔍 FETCHING REAL DATA: Using optimized COUNT queries (bypasses 1000 record limit)...');
 
-    // Obtener tickets vendidos y reservados desde BD
-    const { data: ticketsData, error } = await supabase
-      .from('tickets')
-      .select('status')
-      .in('status', ['vendido', 'reservado']);
+    // ✅ FIX: Use COUNT queries instead of SELECT to bypass the 1000 record limit
+    // This ensures we get accurate counts regardless of how many tickets exist
+    const [
+      { count: soldCount, error: soldError },
+      { count: reservedCount, error: reservedError }
+    ] = await Promise.all([
+      supabase.from('tickets').select('*', { count: 'exact', head: true }).eq('status', 'vendido'),
+      supabase.from('tickets').select('*', { count: 'exact', head: true }).eq('status', 'reservado')
+    ]);
 
-    if (error) {
-      console.error('🔴 Supabase query error:', error);
-      throw error;
+    // Check for errors
+    if (soldError || reservedError) {
+      const firstError = soldError || reservedError;
+      console.error('🔴 Supabase count query error:', firstError);
+      throw firstError;
     }
 
-    const soldCount = ticketsData?.filter(t => t.status === 'vendido').length || 0;
-    const reservedCount = ticketsData?.filter(t => t.status === 'reservado').length || 0;
+    const realSoldCount = soldCount || 0;
+    const realReservedCount = reservedCount || 0;
 
-    console.log(`📊 REAL DATA FETCHED: ${soldCount} sold, ${reservedCount} reserved from ${ticketsData?.length || 0} total records`);
-    
+    console.log(`📊 REAL DATA FETCHED (COUNT METHOD): ${realSoldCount} sold, ${realReservedCount} reserved`);
+    console.log(`✅ COUNT QUERIES: Bypassed record limits, showing true database state`);
+
     // Verificación básica de datos
-    if (soldCount + reservedCount > TOTAL_TICKETS) {
-      console.error(`🚨 DATA INTEGRITY ERROR: sold + reserved (${soldCount + reservedCount}) > total tickets (${TOTAL_TICKETS})`);
+    if (realSoldCount + realReservedCount > TOTAL_TICKETS) {
+      console.error(`🚨 DATA INTEGRITY ERROR: sold + reserved (${realSoldCount + realReservedCount}) > total tickets (${TOTAL_TICKETS})`);
     }
 
-    return { sold: soldCount, reserved: reservedCount };
+    return { sold: realSoldCount, reserved: realReservedCount };
   } catch (error) {
     console.error('🔴 Error fetching real data:', error);
     console.error('🔧 FALLBACK: Using zero values for sold and reserved');
@@ -215,16 +222,36 @@ const updateMasterCounters = async (forceUpdate = false) => {
     // 🔄 SYNC CRÍTICO CON ZUSTAND STORE
     try {
       if (typeof window !== 'undefined') {
-        // Obtener los números específicos de tickets vendidos y reservados
-        console.log('📊 FETCHING SPECIFIC TICKET NUMBERS FOR ZUSTAND SYNC...');
-        const { data: ticketNumbers, error } = await supabase
-          .from('tickets')
-          .select('number, status')
-          .in('status', ['vendido', 'reservado']);
+        // ✅ FIX: Get specific ticket numbers without hitting the 1000 record limit
+        console.log('📊 FETCHING SPECIFIC TICKET NUMBERS FOR ZUSTAND SYNC (NO LIMITS)...');
 
-        if (!error && ticketNumbers) {
-          const soldNumbers = ticketNumbers.filter(t => t.status === 'vendido').map(t => t.number);
-          const reservedNumbers = ticketNumbers.filter(t => t.status === 'reservado').map(t => t.number);
+        // Use separate queries with proper limits to get all ticket numbers
+        const [
+          { data: soldTickets, error: soldTicketsError },
+          { data: reservedTickets, error: reservedTicketsError }
+        ] = await Promise.all([
+          supabase
+            .from('tickets')
+            .select('number')
+            .eq('status', 'vendido')
+            .limit(10000), // Explicit high limit to ensure we get all sold tickets
+          supabase
+            .from('tickets')
+            .select('number')
+            .eq('status', 'reservado')
+            .limit(10000)  // Explicit high limit to ensure we get all reserved tickets
+        ]);
+
+        if (!soldTicketsError && !reservedTicketsError && soldTickets && reservedTickets) {
+          const soldNumbers = soldTickets.map(t => t.number);
+          const reservedNumbers = reservedTickets.map(t => t.number);
+
+          console.log(`🔄 SYNCING ZUSTAND STORE (UNLIMITED): ${soldNumbers.length} sold, ${reservedNumbers.length} reserved`);
+
+          // Verify the counts match our COUNT query
+          if (soldNumbers.length !== sold) {
+            console.warn(`⚠️ ZUSTAND SYNC MISMATCH: Got ${soldNumbers.length} sold numbers but count query returned ${sold}`);
+          }
           
           console.log(`🔄 SYNCING ZUSTAND STORE: ${soldNumbers.length} sold, ${reservedNumbers.length} reserved`);
           
@@ -257,7 +284,7 @@ const updateMasterCounters = async (forceUpdate = false) => {
             });
           }
         } else {
-          console.error('❌ Failed to fetch ticket numbers for Zustand sync:', error);
+          console.error('❌ Failed to fetch ticket numbers for Zustand sync:', soldTicketsError || reservedTicketsError);
         }
       }
     } catch (syncError) {

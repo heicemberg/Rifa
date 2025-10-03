@@ -59,6 +59,7 @@ interface Props {
   hasDiscount?: boolean;
 }
 
+// Configuración actualizada de métodos de pago con bancos reales mexicanos
 const paymentMethods = [
   {
     id: 'binance',
@@ -72,16 +73,6 @@ const paymentMethods = [
     }
   },
   {
-    id: 'oxxo',
-    name: 'OXXO',
-    logo: '/logos/oxxo.png',
-    details: {
-      type: 'store',
-      card: '4152314364090798',
-      instructions: 'Presenta esta tarjeta en cualquier tienda OXXO y paga el monto exacto'
-    }
-  },
-  {
     id: 'banamex',
     name: 'Banco Banamex',
     logo: '/logos/banamex.svg',
@@ -90,7 +81,7 @@ const paymentMethods = [
       account: '8744427',
       clabe: '002180702087444274',
       holder: 'Egleimis Ollarves',
-      instructions: 'Transferencia bancaria o depósito en sucursal'
+      instructions: 'Transferencia bancaria SPEI o depósito en sucursal'
     }
   },
   {
@@ -102,6 +93,16 @@ const paymentMethods = [
       card: '4152314364090798',
       holder: 'Egliskar Ollarves',
       instructions: 'Transferencia SPEI, depósito en ventanilla o pago con tarjeta'
+    }
+  },
+  {
+    id: 'oxxo',
+    name: 'OXXO',
+    logo: '/logos/oxxo.png',
+    details: {
+      type: 'store',
+      card: '4152314364090798',
+      instructions: 'Presenta esta tarjeta en cualquier tienda OXXO y paga el monto exacto'
     }
   }
 ];
