@@ -1027,71 +1027,57 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                   Datos para {selectedPaymentMethod.name}
                 </h4>
                 
-                {selectedPaymentMethod.details.type === 'crypto' && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-700">Red:</span>
-                      <span className="font-mono text-sm bg-white px-2 py-1 rounded border text-gray-900">{selectedPaymentMethod.details.network}</span>
+                {/* Datos del método de pago */}
+                <div className="space-y-3">
+                  {/* Mostrar datos específicos según el método */}
+                  {selectedPaymentMethod.id === 'binance' && (
+                    <div className="text-center">
+                      <img
+                        src="/premios/QR.jpg"
+                        alt="Código QR Binance Pay"
+                        className="mx-auto w-48 h-48 object-contain rounded-lg border-2 border-emerald-300 bg-white p-2"
+                      />
+                      <p className="text-sm text-gray-600 mt-2">Escanea el código QR desde tu app Binance</p>
                     </div>
-                    <div>
-                      <span className="text-sm font-medium text-gray-700 block mb-2">Dirección:</span>
-                      <div className="p-3 bg-white border-2 border-emerald-300 rounded-lg font-mono text-sm break-all text-gray-900 select-all">
-                        {selectedPaymentMethod.details.address}
-                      </div>
+                  )}
+
+                  <div>
+                    <span className="text-sm font-medium text-gray-700 block mb-2">Información para pago:</span>
+                    <div className="p-3 bg-white border-2 border-emerald-300 rounded-lg font-mono text-sm text-gray-900 whitespace-pre-line">
+                      {selectedPaymentMethod.id === 'binance' && `Binance ID: ${selectedPaymentMethod.details.binanceId}`}
+                      {selectedPaymentMethod.id === 'oxxo' && `Tarjeta: ${selectedPaymentMethod.details.card}`}
+                      {selectedPaymentMethod.id === 'banamex' &&
+                        `Titular: ${selectedPaymentMethod.details.holder}\nCuenta: ${selectedPaymentMethod.details.account}\nCLABE: ${selectedPaymentMethod.details.clabe}`
+                      }
+                      {selectedPaymentMethod.id === 'bbva' &&
+                        `Titular: ${selectedPaymentMethod.details.holder}\nTarjeta: ${selectedPaymentMethod.details.card}`
+                      }
                     </div>
-                    <div className="flex items-center justify-between bg-emerald-100 p-3 rounded-lg">
-                      <span className="text-sm font-medium text-gray-700">Monto a enviar:</span>
-                      <span className="font-bold text-lg text-emerald-700">{formatPriceMXN(calculatePrice())}</span>
-                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between bg-emerald-100 p-3 rounded-lg">
+                    <span className="text-sm font-medium text-gray-700">Monto a pagar:</span>
+                    <span className="font-bold text-lg text-emerald-700">{formatPriceMXN(calculatePrice())}</span>
+                  </div>
+
+                  {selectedPaymentMethod.id === 'binance' && (
                     <p className="text-sm text-gray-600 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
                       💡 {selectedPaymentMethod.details.instructions}
                     </p>
-                  </div>
-                )}
-                
-                {selectedPaymentMethod.details.type === 'store' && (
-                  <div className="space-y-3">
-                    <div>
-                      <span className="text-sm font-medium text-gray-700 block mb-2">Referencia:</span>
-                      <div className="p-4 bg-white border-2 border-orange-300 rounded-lg font-mono text-xl font-bold text-center text-gray-900 select-all">
-                        {selectedPaymentMethod.details.reference}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between bg-emerald-100 p-3 rounded-lg">
-                      <span className="text-sm font-medium text-gray-700">Monto a pagar:</span>
-                      <span className="font-bold text-lg text-emerald-700">{formatPriceMXN(calculatePrice())}</span>
-                    </div>
+                  )}
+
+                  {selectedPaymentMethod.id === 'oxxo' && (
                     <p className="text-sm text-gray-600 bg-orange-50 p-3 rounded-lg border border-orange-200">
                       🏪 {selectedPaymentMethod.details.instructions}
                     </p>
-                  </div>
-                )}
-                
-                {selectedPaymentMethod.details.type === 'bank' && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-700">Titular:</span>
-                      <span className="font-bold text-gray-900">{selectedPaymentMethod.details.holder}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-700">Cuenta:</span>
-                      <span className="font-mono bg-white px-2 py-1 rounded border text-gray-900">{selectedPaymentMethod.details.account}</span>
-                    </div>
-                    <div>
-                      <span className="text-sm font-medium text-gray-700 block mb-2">CLABE:</span>
-                      <div className="p-3 bg-white border-2 border-emerald-300 rounded-lg font-mono text-sm text-gray-900 select-all">
-                        {selectedPaymentMethod.details.clabe}
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between bg-emerald-100 p-3 rounded-lg">
-                      <span className="text-sm font-medium text-gray-700">Monto a transferir:</span>
-                      <span className="font-bold text-lg text-emerald-700">{formatPriceMXN(calculatePrice())}</span>
-                    </div>
+                  )}
+
+                  {(selectedPaymentMethod.id === 'banamex' || selectedPaymentMethod.id === 'bbva') && (
                     <p className="text-sm text-gray-600 bg-emerald-50 p-3 rounded-lg border border-emerald-200">
                       🏦 {selectedPaymentMethod.details.instructions}
                     </p>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
           </div>
