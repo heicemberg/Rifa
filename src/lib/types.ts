@@ -81,6 +81,8 @@ export interface PaymentMethod {
   accountDetails?: string;
   /** Si el método está habilitado */
   enabled: boolean;
+  /** Ruta del código QR (opcional, solo para métodos como Binance) */
+  qrCode?: string | null;
 }
 
 /**
