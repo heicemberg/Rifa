@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Payment Methods Fix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8 bg-gray-100">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">🔧 Testing Payment Methods Fix</h1>
+
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+            <h2 class="text-xl font-bold mb-4 text-center bg-blue-100 text-blue-800 p-2 rounded">
+                Instructions for Testing
+            </h2>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Open the main application at <a href="http://localhost:3006" class="text-blue-600 underline" target="_blank">http://localhost:3006</a></li>
+                <li>Click on any ticket quantity card to open the ComprehensivePurchaseModal</li>
+                <li>Scroll down to the "Método de pago" section</li>
+                <li>Verify that <strong>ALL 4 payment methods</strong> are visible:
+                    <ul class="list-disc list-inside ml-4 mt-2 space-y-1">
+                        <li>✅ Binance Pay (with logo)</li>
+                        <li>✅ Banco Banamex (with logo) - <strong>SHOULD NOW BE VISIBLE</strong></li>
+                        <li>✅ BBVA México (with logo) - <strong>SHOULD NOW BE VISIBLE</strong></li>
+                        <li>✅ OXXO (with logo)</li>
+                    </ul>
+                </li>
+                <li>Open browser console (F12) to see debug logs starting with 🏦</li>
+                <li>Look for logs like "MODAL PAYMENT METHODS LOADED: 4 ..."</li>
+            </ol>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+            <h2 class="text-xl font-bold mb-4 text-center bg-green-100 text-green-800 p-2 rounded">
+                ✅ Expected Fix Results
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-red-600">Before Fix:</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>❌ Only 2 methods visible (Binance + OXXO)</li>
+                        <li>❌ Banamex missing</li>
+                        <li>❌ BBVA missing</li>
+                        <li>❌ Hardcoded payment array</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-green-600">After Fix:</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>✅ All 4 methods visible</li>
+                        <li>✅ Banamex visible</li>
+                        <li>✅ BBVA visible</li>
+                        <li>✅ Dynamic payment config</li>
+                        <li>✅ Proper console logging</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-center bg-yellow-100 text-yellow-800 p-2 rounded">
+                🔍 Debug Information to Look For
+            </h2>
+            <div class="bg-black text-green-400 p-4 rounded text-sm font-mono">
+                <div>🏦 DYNAMIC PAYMENT METHODS: 4 [...]</div>
+                <div>🏦 MODAL PAYMENT METHODS LOADED: 4 ["binance: Binance Pay", "banamex: Banco Banamex", "bbva: BBVA México", "oxxo: OXXO"]</div>
+                <div>🚨 CRITICAL DEBUG - PAYMENT METHODS RENDERING:</div>
+                <div>🏦 PAYMENT METHODS COUNT: 4</div>
+                <div>🏦 RENDERING METHOD 1/4: {id: "binance", name: "Binance Pay", ...}</div>
+                <div>🏦 RENDERING METHOD 2/4: {id: "banamex", name: "Banco Banamex", ...}</div>
+                <div>🏦 RENDERING METHOD 3/4: {id: "bbva", name: "BBVA México", ...}</div>
+                <div>🏦 RENDERING METHOD 4/4: {id: "oxxo", name: "OXXO", ...}</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="http://localhost:3006" target="_blank"
+               class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors">
+                🚀 Test the Fix Now
+            </a>
+        </div>
+    </div>
+</body>
+</html>

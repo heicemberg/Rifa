@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug: ComprehensivePurchaseModal Payment Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Replica exact styles from ComprehensivePurchaseModal */
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="p-8 bg-gray-100">
+    <h1 class="text-3xl font-bold mb-6 text-center">🔍 Debug ComprehensivePurchaseModal Payment Methods</h1>
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Test 1: Exact replica of modal's payment methods section -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-center bg-red-100 text-red-800 p-2 rounded">
+                🚨 ISSUE: Only 2 methods showing (Binance + OXXO)
+            </h2>
+
+            <div class="space-y-3 sm:space-y-4">
+                <h3 class="text-lg font-bold text-gray-900 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <span class="mr-2">💳</span>
+                        Método de pago
+                    </div>
+                    <div class="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full" id="methods-count">
+                        4 métodos
+                    </div>
+                </h3>
+
+                <!-- EXACT REPLICA OF GRID FROM MODAL -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 w-full" id="payment-grid">
+                    <!-- This will be populated by JavaScript to match modal exactly -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Test 2: Simple grid to verify all 4 methods work -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4 text-center bg-green-100 text-green-800 p-2 rounded">
+                ✅ CONTROL TEST: All 4 methods manually
+            </h2>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <button class="p-3 rounded-lg border-2 border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50 min-h-[80px] flex flex-col items-center justify-center transition-all">
+                    <div class="flex items-center justify-center h-8 sm:h-10 mb-1 sm:mb-2">
+                        <img src="/logos/binance.svg" alt="Binance Pay" class="max-h-8 sm:max-h-10 w-auto" />
+                    </div>
+                    <p class="font-bold text-gray-800 text-xs sm:text-sm">Binance Pay</p>
+                </button>
+
+                <button class="p-3 rounded-lg border-2 border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50 min-h-[80px] flex flex-col items-center justify-center transition-all">
+                    <div class="flex items-center justify-center h-8 sm:h-10 mb-1 sm:mb-2">
+                        <img src="/logos/banamex.svg" alt="Banco Banamex" class="max-h-8 sm:max-h-10 w-auto" />
+                    </div>
+                    <p class="font-bold text-gray-800 text-xs sm:text-sm">Banco Banamex</p>
+                </button>
+
+                <button class="p-3 rounded-lg border-2 border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50 min-h-[80px] flex flex-col items-center justify-center transition-all">
+                    <div class="flex items-center justify-center h-8 sm:h-10 mb-1 sm:mb-2">
+                        <img src="/logos/bbva.svg" alt="BBVA México" class="max-h-8 sm:max-h-10 w-auto" />
+                    </div>
+                    <p class="font-bold text-gray-800 text-xs sm:text-sm">BBVA México</p>
+                </button>
+
+                <button class="p-3 rounded-lg border-2 border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50 min-h-[80px] flex flex-col items-center justify-center transition-all">
+                    <div class="flex items-center justify-center h-8 sm:h-10 mb-1 sm:mb-2">
+                        <img src="/logos/oxxo.png" alt="OXXO" class="max-h-8 sm:max-h-10 w-auto" />
+                    </div>
+                    <p class="font-bold text-gray-800 text-xs sm:text-sm">OXXO</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Debug Information -->
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-xl font-bold mb-4">🔧 Debug Information</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Expected Array (4 methods):</h3>
+                    <div class="bg-gray-100 p-3 rounded text-sm font-mono">
+                        <div>1. { id: 'binance', name: 'Binance Pay' }</div>
+                        <div>2. { id: 'banamex', name: 'Banco Banamex' }</div>
+                        <div>3. { id: 'bbva', name: 'BBVA México' }</div>
+                        <div>4. { id: 'oxxo', name: 'OXXO' }</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-2">What User Sees:</h3>
+                    <div class="bg-red-100 p-3 rounded text-sm font-mono">
+                        <div>1. { id: 'binance', name: 'Binance Pay' } ✅</div>
+                        <div>2. { id: 'banamex', name: 'Banco Banamex' } ❌</div>
+                        <div>3. { id: 'bbva', name: 'BBVA México' } ❌</div>
+                        <div>4. { id: 'oxxo', name: 'OXXO' } ✅</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="font-bold text-lg mb-2">Console Logs:</h3>
+                <div id="console-logs" class="bg-black text-green-400 p-3 rounded text-sm font-mono max-h-64 overflow-y-auto">
+                    <!-- Console logs will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logging function that also displays in page
+        function debugLog(message) {
+            console.log(message);
+            const logsDiv = document.getElementById('console-logs');
+            logsDiv.innerHTML += `<div>${message}</div>`;
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        debugLog('🔍 DEBUG: Starting ComprehensivePurchaseModal debug...');
+
+        // Exact replica of paymentMethods array from ComprehensivePurchaseModal
+        const paymentMethods = [
+            {
+                id: 'binance',
+                name: 'Binance Pay',
+                logo: '/logos/binance.svg',
+                details: {
+                    type: 'crypto',
+                    binanceId: '168868614',
+                    qrCode: '/premios/QR.jpg',
+                    instructions: 'Escanea el código QR desde la app Binance o envía al ID: 168868614'
+                }
+            },
+            {
+                id: 'banamex',
+                name: 'Banco Banamex',
+                logo: '/logos/banamex.svg',
+                details: {
+                    type: 'bank',
+                    account: '8744427',
+                    clabe: '002180702087444274',
+                    holder: 'Egleimis Ollarves',
+                    instructions: 'Transferencia SPEI o depósito en cualquier sucursal Banamex'
+                }
+            },
+            {
+                id: 'bbva',
+                name: 'BBVA México',
+                logo: '/logos/bbva.svg',
+                details: {
+                    type: 'bank',
+                    card: '4152314364090798',
+                    holder: 'Egliskar Ollarves',
+                    instructions: 'Transferencia SPEI, depósito en ventanilla o pago con tarjeta'
+                }
+            },
+            {
+                id: 'oxxo',
+                name: 'OXXO',
+                logo: '/logos/oxxo.png',
+                details: {
+                    type: 'store',
+                    card: '4152314364090798',
+                    instructions: 'Presenta esta referencia en cualquier tienda OXXO y paga el monto exacto'
+                }
+            }
+        ];
+
+        debugLog(`🏦 PAYMENT METHODS COUNT: ${paymentMethods.length}`);
+        debugLog(`🏦 PAYMENT METHODS: ${paymentMethods.map(m => `${m.id}: ${m.name}`).join(', ')}`);
+
+        // Update count display
+        document.getElementById('methods-count').textContent = `${paymentMethods.length} métodos`;
+
+        // Generate the exact grid HTML as it appears in the modal
+        const paymentGrid = document.getElementById('payment-grid');
+
+        debugLog('🏦 RENDERING PAYMENT METHODS...');
+
+        paymentMethods.forEach((method, index) => {
+            debugLog(`🏦 RENDERING METHOD ${index + 1}: ${method.id} - ${method.name}`);
+
+            const button = document.createElement('button');
+            button.className = 'p-2 sm:p-3 rounded-lg border-2 transition-all min-h-[80px] flex flex-col items-center justify-center border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50';
+
+            button.innerHTML = `
+                <div class="flex items-center justify-center h-8 sm:h-10 mb-1 sm:mb-2">
+                    <img
+                        src="${method.logo}"
+                        alt="${method.name}"
+                        class="max-h-8 sm:max-h-10 w-auto"
+                        onError="handleImageError(this, '${method.name}', '${method.logo}')"
+                        onLoad="handleImageLoad('${method.name}', '${method.logo}')"
+                    />
+                    <div class="fallback-icon hidden text-2xl">💳</div>
+                </div>
+                <p class="font-bold text-gray-800 text-xs sm:text-sm">${method.name}</p>
+            `;
+
+            paymentGrid.appendChild(button);
+        });
+
+        // Image load handlers
+        function handleImageLoad(name, logo) {
+            debugLog(`✅ IMAGE LOADED: ${logo} for ${name}`);
+        }
+
+        function handleImageError(img, name, logo) {
+            debugLog(`🚨 ERROR LOADING IMAGE: ${logo} for ${name}`);
+            img.style.display = 'none';
+            const fallbackIcon = img.parentElement.querySelector('.fallback-icon');
+            if (fallbackIcon) {
+                fallbackIcon.style.display = 'block';
+            }
+        }
+
+        // Final check
+        setTimeout(() => {
+            const renderedButtons = paymentGrid.querySelectorAll('button');
+            debugLog(`🔍 FINAL COUNT: ${renderedButtons.length} payment method buttons rendered`);
+
+            if (renderedButtons.length !== 4) {
+                debugLog(`🚨 CRITICAL ISSUE: Expected 4 buttons, got ${renderedButtons.length}`);
+            } else {
+                debugLog(`✅ SUCCESS: All 4 payment methods rendered correctly`);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

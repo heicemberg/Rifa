@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { useRaffleStore, useTickets } from '../stores/raffle-store';
 import { useMasterCounters } from '../hooks/useMasterCounters';
 import { calculatePrice as calculatePriceFromUtils } from '../lib/utils';
+import { getPaymentMethods } from '../lib/config/payment-config';
 
 // Tipos para la estructura de datos
 interface TicketData {
@@ -59,53 +60,74 @@ interface Props {
   hasDiscount?: boolean;
 }
 
-// Configuración de métodos de pago con datos exactos proporcionados
-const paymentMethods = [
-  {
-    id: 'binance',
-    name: 'Binance Pay',
-    logo: '/logos/binance.svg',
-    details: {
-      type: 'crypto',
-      binanceId: '168868614',
-      qrCode: '/premios/QR.jpg',
-      instructions: 'Escanea el código QR desde la app Binance o envía al ID: 168868614'
+// ✅ PAYMENT METHODS: Usar configuración dinámica en lugar de hardcoded
+const getModalPaymentMethods = () => {
+  const dynamicMethods = getPaymentMethods();
+  console.log('🏦 DYNAMIC PAYMENT METHODS:', dynamicMethods.length, dynamicMethods.map(m => m.name));
+
+  // Transform to modal format with enhanced details
+  return dynamicMethods.map(method => {
+    const baseMethod = {
+      id: method.id,
+      name: method.name,
+      logo: method.icon, // Use 'icon' from dynamic config as 'logo'
+      details: {
+        type: method.id === 'binance' ? 'crypto' : method.id === 'oxxo' ? 'store' : 'bank',
+        instructions: ''
+      }
+    };
+
+    // Add specific details based on method type
+    switch (method.id) {
+      case 'binance':
+        return {
+          ...baseMethod,
+          details: {
+            ...baseMethod.details,
+            binanceId: method.account,
+            qrCode: '/premios/QR.jpg',
+            instructions: `Escanea el código QR desde la app Binance o envía al ID: ${method.account}`
+          }
+        };
+
+      case 'banamex':
+        return {
+          ...baseMethod,
+          details: {
+            ...baseMethod.details,
+            account: method.account,
+            clabe: '002180702087444274', // Fixed CLABE for Banamex
+            holder: 'Egleimis Ollarves',
+            instructions: 'Transferencia SPEI o depósito en cualquier sucursal Banamex'
+          }
+        };
+
+      case 'bbva':
+        return {
+          ...baseMethod,
+          details: {
+            ...baseMethod.details,
+            card: method.account,
+            holder: 'Egliskar Ollarves',
+            instructions: 'Transferencia SPEI, depósito en ventanilla o pago con tarjeta'
+          }
+        };
+
+      case 'oxxo':
+        return {
+          ...baseMethod,
+          details: {
+            ...baseMethod.details,
+            card: method.account,
+            instructions: 'Presenta esta referencia en cualquier tienda OXXO y paga el monto exacto'
+          }
+        };
+
+      default:
+        return baseMethod;
     }
-  },
-  {
-    id: 'banamex',
-    name: 'Banco Banamex',
-    logo: '/logos/banamex.svg',
-    details: {
-      type: 'bank',
-      account: '8744427',
-      clabe: '002180702087444274',
-      holder: 'Egleimis Ollarves',
-      instructions: 'Transferencia SPEI o depósito en cualquier sucursal Banamex'
-    }
-  },
-  {
-    id: 'bbva',
-    name: 'BBVA México',
-    logo: '/logos/bbva.svg',
-    details: {
-      type: 'bank',
-      card: '4152314364090798',
-      holder: 'Egliskar Ollarves',
-      instructions: 'Transferencia SPEI, depósito en ventanilla o pago con tarjeta'
-    }
-  },
-  {
-    id: 'oxxo',
-    name: 'OXXO',
-    logo: '/logos/oxxo.png',
-    details: {
-      type: 'store',
-      card: '4152314364090798',
-      instructions: 'Presenta esta referencia en cualquier tienda OXXO y paga el monto exacto'
-    }
-  }
-];
+  });
+};
 
 const estados = [
   'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
@@ -124,6 +146,13 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
   // Master counter system for unified state
   const masterCounters = useMasterCounters();
   const { isConnected } = masterCounters;
+
+  // ✅ PAYMENT METHODS: Usar métodos dinámicos
+  const paymentMethods = useMemo(() => {
+    const methods = getModalPaymentMethods();
+    console.log('🏦 MODAL PAYMENT METHODS LOADED:', methods.length, methods.map(m => `${m.id}: ${m.name}`));
+    return methods;
+  }, []);
   
   // Pricing constants and functions (self-contained)
   const PRECIO_POR_BOLETO_MXN = 250;
@@ -800,7 +829,15 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
 
   // Función removida - no se usa
 
-  const selectedPaymentMethod = paymentMethods.find(p => p.id === selectedPayment);
+  const selectedPaymentMethod = useMemo(() => {
+    const method = paymentMethods.find(p => p.id === selectedPayment);
+    console.log('🔍 SELECTED PAYMENT METHOD LOOKUP:', {
+      selectedPayment,
+      foundMethod: method ? `${method.id}: ${method.name}` : 'NOT FOUND',
+      availableMethods: paymentMethods.map(m => `${m.id}: ${m.name}`)
+    });
+    return method;
+  }, [paymentMethods, selectedPayment]);
 
   if (!isOpen) return null;
 
@@ -1001,12 +1038,25 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
             </h3>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 w-full">
               {(() => {
+                console.log('🚨 CRITICAL DEBUG - PAYMENT METHODS RENDERING:');
                 console.log('🏦 PAYMENT METHODS COUNT:', paymentMethods.length);
-                console.log('🏦 PAYMENT METHODS:', paymentMethods.map(m => ({ id: m.id, name: m.name, logo: m.logo })));
-                console.log('🏦 RENDERING PAYMENT METHODS...');
+                console.log('🏦 PAYMENT METHODS ARRAY:', paymentMethods);
+                console.log('🏦 PAYMENT METHODS MAPPED:', paymentMethods.map(m => ({ id: m.id, name: m.name, logo: m.logo })));
+                console.log('🏦 STARTING RENDER LOOP...');
+
+                if (paymentMethods.length !== 4) {
+                  console.error(`🚨 CRITICAL: Expected 4 payment methods, got ${paymentMethods.length}`);
+                  console.error('🚨 Missing methods will cause UI to show only partial list');
+                }
+
                 return paymentMethods;
               })().map((method, index) => {
-                console.log(`🏦 RENDERING METHOD ${index + 1}:`, method.id, method.name);
+                console.log(`🏦 RENDERING METHOD ${index + 1}/${paymentMethods.length}:`, {
+                  id: method.id,
+                  name: method.name,
+                  logo: method.logo,
+                  hasDetails: !!method.details
+                });
                 return (
                 <button
                   key={method.id}
@@ -1025,16 +1075,30 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                       height={32}
                       className="max-h-8 sm:max-h-10 w-auto"
                       onError={(e) => {
-                        console.error(`🚨 ERROR LOADING IMAGE: ${method.logo} for ${method.name}`);
+                        console.error(`🚨 CRITICAL - IMAGE LOAD ERROR:`, {
+                          method: method.name,
+                          logo: method.logo,
+                          src: e.currentTarget.src,
+                          index: index + 1,
+                          totalMethods: paymentMethods.length
+                        });
                         e.currentTarget.style.display = 'none';
                         // Show fallback icon
                         const fallbackIcon = e.currentTarget.parentElement?.querySelector('.fallback-icon') as HTMLElement;
                         if (fallbackIcon) {
                           fallbackIcon.style.display = 'block';
+                          console.log(`✅ FALLBACK ICON SHOWN for ${method.name}`);
+                        } else {
+                          console.error(`🚨 NO FALLBACK ICON FOUND for ${method.name}`);
                         }
                       }}
                       onLoad={() => {
-                        console.log(`✅ IMAGE LOADED: ${method.logo} for ${method.name}`);
+                        console.log(`✅ IMAGE LOADED SUCCESSFULLY:`, {
+                          method: method.name,
+                          logo: method.logo,
+                          index: index + 1,
+                          totalMethods: paymentMethods.length
+                        });
                       }}
                     />
                     {/* Fallback icon for failed image loads */}
@@ -1072,15 +1136,17 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                   <div>
                     <span className="text-sm font-medium text-gray-700 block mb-2">Información para pago:</span>
                     <div className="p-3 bg-white border-2 border-emerald-300 rounded-lg font-mono text-sm text-gray-900 whitespace-pre-line">
-                      {selectedPaymentMethod.id === 'binance' && `Binance ID: ${selectedPaymentMethod.details.binanceId}\nTeléfono: +523343461630`}
+                      {selectedPaymentMethod.id === 'binance' &&
+                        `Binance ID: ${(selectedPaymentMethod.details as any).binanceId || '168868614'}\nTeléfono: +523343461630`
+                      }
                       {selectedPaymentMethod.id === 'banamex' &&
-                        `Banco Banamex\nTitular: Egleimis Ollarves\nNro cuenta: 8744427\nCuenta clave (CLABE): 002180702087444274\nTeléfono: +523343461630`
+                        `Banco Banamex\nTitular: ${(selectedPaymentMethod.details as any).holder || 'Egleimis Ollarves'}\nNro cuenta: ${(selectedPaymentMethod.details as any).account || '8744427'}\nCuenta clave (CLABE): ${(selectedPaymentMethod.details as any).clabe || '002180702087444274'}\nTeléfono: +523343461630`
                       }
                       {selectedPaymentMethod.id === 'bbva' &&
-                        `BBVA México\nTitular: Egliskar Ollarves\nTarjeta: 4152314364090798\nTeléfono: +523343461630`
+                        `BBVA México\nTitular: ${(selectedPaymentMethod.details as any).holder || 'Egliskar Ollarves'}\nTarjeta: ${(selectedPaymentMethod.details as any).card || '4152314364090798'}\nTeléfono: +523343461630`
                       }
                       {selectedPaymentMethod.id === 'oxxo' &&
-                        `OXXO\nReferencia: 4152314364090798\nTeléfono: +523343461630`
+                        `OXXO\nReferencia: ${(selectedPaymentMethod.details as any).card || '4152314364090798'}\nTeléfono: +523343461630`
                       }
                     </div>
                   </div>
@@ -1092,19 +1158,19 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
 
                   {selectedPaymentMethod.id === 'binance' && (
                     <p className="text-sm text-gray-600 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-                      💡 {selectedPaymentMethod.details.instructions}
+                      💡 {(selectedPaymentMethod.details as any).instructions || 'Escanea el código QR desde la app Binance'}
                     </p>
                   )}
 
                   {selectedPaymentMethod.id === 'oxxo' && (
                     <p className="text-sm text-gray-600 bg-orange-50 p-3 rounded-lg border border-orange-200">
-                      🏪 {selectedPaymentMethod.details.instructions}
+                      🏪 {(selectedPaymentMethod.details as any).instructions || 'Presenta esta referencia en cualquier tienda OXXO'}
                     </p>
                   )}
 
                   {(selectedPaymentMethod.id === 'banamex' || selectedPaymentMethod.id === 'bbva') && (
                     <p className="text-sm text-gray-600 bg-emerald-50 p-3 rounded-lg border border-emerald-200">
-                      🏦 {selectedPaymentMethod.details.instructions}
+                      🏦 {(selectedPaymentMethod.details as any).instructions || 'Transferencia SPEI o depósito en ventanilla'}
                     </p>
                   )}
                 </div>
