@@ -990,20 +990,28 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
 
           {/* Métodos de Pago - Compacto móvil */}
           <div className="space-y-3 sm:space-y-4">
-            <h3 className="text-lg font-bold text-gray-900 flex items-center">
-              <span className="mr-2">💳</span>
-              Método de pago
+            <h3 className="text-lg font-bold text-gray-900 flex items-center justify-between">
+              <div className="flex items-center">
+                <span className="mr-2">💳</span>
+                Método de pago
+              </div>
+              <div className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                {paymentMethods.length} métodos
+              </div>
             </h3>
-            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 w-full">
               {(() => {
                 console.log('🏦 PAYMENT METHODS COUNT:', paymentMethods.length);
-                console.log('🏦 PAYMENT METHODS:', paymentMethods.map(m => m.id));
+                console.log('🏦 PAYMENT METHODS:', paymentMethods.map(m => ({ id: m.id, name: m.name, logo: m.logo })));
+                console.log('🏦 RENDERING PAYMENT METHODS...');
                 return paymentMethods;
-              })().map((method) => (
+              })().map((method, index) => {
+                console.log(`🏦 RENDERING METHOD ${index + 1}:`, method.id, method.name);
+                return (
                 <button
                   key={method.id}
                   onClick={() => handlePaymentSelect(method.id)}
-                  className={`p-2 sm:p-3 rounded-lg border-2 transition-all ${
+                  className={`p-2 sm:p-3 rounded-lg border-2 transition-all min-h-[80px] flex flex-col items-center justify-center ${
                     selectedPayment === method.id
                       ? 'border-emerald-500 bg-emerald-50 shadow-lg scale-105'
                       : 'border-gray-300 bg-white hover:border-emerald-400 hover:shadow-md hover:bg-emerald-50'
@@ -1016,11 +1024,26 @@ export default function ComprehensivePurchaseModal({ isOpen, onClose, initialTic
                       width={32}
                       height={32}
                       className="max-h-8 sm:max-h-10 w-auto"
+                      onError={(e) => {
+                        console.error(`🚨 ERROR LOADING IMAGE: ${method.logo} for ${method.name}`);
+                        e.currentTarget.style.display = 'none';
+                        // Show fallback icon
+                        const fallbackIcon = e.currentTarget.parentElement?.querySelector('.fallback-icon') as HTMLElement;
+                        if (fallbackIcon) {
+                          fallbackIcon.style.display = 'block';
+                        }
+                      }}
+                      onLoad={() => {
+                        console.log(`✅ IMAGE LOADED: ${method.logo} for ${method.name}`);
+                      }}
                     />
+                    {/* Fallback icon for failed image loads */}
+                    <div className="fallback-icon hidden text-2xl">💳</div>
                   </div>
                   <p className="font-bold text-gray-800 text-xs sm:text-sm">{method.name}</p>
                 </button>
-              ))}
+                );
+              })}
             </div>
             {errors.payment && <p className="text-red-600 text-sm font-medium bg-red-50 p-2 rounded">{errors.payment}</p>}
             
