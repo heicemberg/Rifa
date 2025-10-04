@@ -1420,7 +1420,7 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
                                         <div className="group">
                                           <div className="flex items-center gap-2 mb-2">
                                             <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                                            <span className="text-emerald-700 font-semibold">Email Binance Pay:</span>
+                                            <span className="text-emerald-700 font-semibold">Pay ID:</span>
                                           </div>
                                           <div className="flex items-center gap-2">
                                             <div className="flex-1 min-w-0 bg-slate-100 rounded-lg p-3 border border-slate-200 overflow-hidden">
@@ -1429,11 +1429,11 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
                                               </span>
                                             </div>
                                             <button
-                                              onClick={() => copyToClipboard(selectedMethod.account, 'binance-email')}
+                                              onClick={() => copyToClipboard(selectedMethod.account, 'binance-payid')}
                                               className="flex-shrink-0 p-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-100 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95"
-                                              title="Copiar email"
+                                              title="Copiar Pay ID"
                                             >
-                                              {copiedField === 'binance-email' ? <CheckCircle size={16} /> : <Copy size={16} />}
+                                              {copiedField === 'binance-payid' ? <CheckCircle size={16} /> : <Copy size={16} />}
                                             </button>
                                           </div>
                                         </div>
@@ -1462,7 +1462,7 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
 
                                         <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
                                           <p className="text-sm text-emerald-800 font-medium">
-                                            💡 <strong>Importante:</strong> Transfiere el monto exacto en cualquier criptomoneda al email de Binance Pay. Los montos específicos aparecerán en el siguiente paso.
+                                            💡 <strong>Importante:</strong> Transfiere el monto exacto en cualquier criptomoneda al Pay ID de Binance. Los montos específicos aparecerán en el siguiente paso.
                                           </p>
                                         </div>
                                       </div>
@@ -3319,24 +3319,24 @@ const PaymentProofStep: React.FC<PaymentProofStepProps> = ({
                   <div className="flex justify-between items-center group">
                     <span className="text-emerald-700 font-semibold flex items-center gap-2">
                       <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                      Email Binance Pay:
+                      Pay ID:
                     </span>
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-bold text-slate-900 bg-slate-100 px-3 py-1 rounded-lg">
                         {selectedMethod.account}
                       </span>
                       <button
-                        onClick={() => onCopyToClipboard(selectedMethod.account, 'binance-email')}
+                        onClick={() => onCopyToClipboard(selectedMethod.account, 'binance-payid')}
                         className="p-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-100 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95"
                       >
-                        {copiedField === 'binance-email' ? <CheckCircle size={16} /> : <Copy size={16} />}
+                        {copiedField === 'binance-payid' ? <CheckCircle size={16} /> : <Copy size={16} />}
                       </button>
                     </div>
                   </div>
                   <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
                     <p className="text-sm text-emerald-800 font-medium">
                       💡 <strong>Importante:</strong> Transfiere exactamente <strong className="text-emerald-900">{formatPrice(totalPrice)}</strong>
-                      al email de Binance Pay mostrado arriba.
+                      al Pay ID de Binance mostrado arriba.
                     </p>
                   </div>
                 </div>
