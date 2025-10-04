@@ -690,8 +690,8 @@ export default function NewRaffePage() {
                     <Image
                       src="/logos/banamex.svg"
                       alt="Banco Banamex"
-                      width={200}
-                      height={120}
+                      width={218}
+                      height={48}
                       className="object-contain"
                     />
                   </div>
@@ -704,8 +704,8 @@ export default function NewRaffePage() {
                     <Image
                       src="/logos/bbva.svg"
                       alt="BBVA México"
-                      width={200}
-                      height={140}
+                      width={212}
+                      height={64}
                       className="object-contain"
                     />
                   </div>
