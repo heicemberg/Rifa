@@ -1,6 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run build"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ."
 
 # Variables de entorno para build y runtime - PROTEGIDAS
 # IMPORTANTE: Las credenciales reales se configuran en Netlify UI por seguridad
