@@ -27,6 +27,7 @@ import TicketGrid from '@/components/TicketGrid'
 import OrganicNotifications from '@/components/OrganicNotifications'
 import MathDebugger from '@/components/MathDebugger'
 import FloatingPurchaseButton from '@/components/FloatingPurchaseButton'
+import { BanamexLogo, BBVALogo, OXXOLogo, BinanceLogo } from '@/components/PaymentLogos'
 import { analytics } from '@/lib/analytics'
 
 export default function NewRaffePage() {
@@ -687,13 +688,7 @@ export default function NewRaffePage() {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
-                    <Image
-                      src="/logos/banamex.svg"
-                      alt="Banco Banamex"
-                      width={218}
-                      height={48}
-                      className="object-contain"
-                    />
+                    <BanamexLogo className="w-full h-full object-contain" />
                   </div>
                   <div className="text-gray-800 font-bold text-sm">Banamex</div>
                   <div className="text-gray-600 text-xs">Transferencia</div>
@@ -701,41 +696,23 @@ export default function NewRaffePage() {
 
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
-                    <Image
-                      src="/logos/bbva.svg"
-                      alt="BBVA México"
-                      width={212}
-                      height={64}
-                      className="object-contain"
-                    />
+                    <BBVALogo className="w-full h-full object-contain" />
                   </div>
                   <div className="text-gray-800 font-bold text-sm">BBVA México</div>
                   <div className="text-gray-600 text-xs">Transferencia</div>
                 </div>
-                
+
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
-                    <Image
-                      src="/logos/oxxo.svg"
-                      alt="OXXO"
-                      width={100}
-                      height={60}
-                      className="object-contain"
-                    />
+                    <OXXOLogo className="w-full h-full object-contain" />
                   </div>
                   <div className="text-gray-800 font-bold text-sm">OXXO</div>
                   <div className="text-gray-600 text-xs">Efectivo</div>
                 </div>
-                
+
                 <div className="bg-white rounded-xl p-6 text-center shadow-lg">
                   <div className="w-32 h-24 flex items-center justify-center mx-auto mb-4">
-                    <Image
-                      src="/logos/binance.svg"
-                      alt="Binance"
-                      width={300}
-                      height={260}
-                      className="object-contain"
-                    />
+                    <BinanceLogo className="w-full h-full object-contain" />
                   </div>
                   <div className="text-gray-800 font-bold text-sm">Binance Pay</div>
                   <div className="text-gray-600 text-xs">Crypto</div>

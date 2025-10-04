@@ -44,6 +44,7 @@ import { useRaffleStore } from '../stores/raffle-store';
 import { useOversellProtection } from '../hooks/useOversellProtection';
 import { useReservationCleanup } from '../hooks/useReservationCleanup';
 import CryptoIcon from './CryptoIcon';
+import { PaymentLogo } from './PaymentLogos';
 
 // ============================================================================
 // INTERFACES AND TYPES
@@ -363,9 +364,9 @@ const OptimizedPaymentMethodCard: React.FC<OptimizedPaymentMethodCardProps> = Re
           'flex items-center justify-center bg-white rounded-xl shadow-sm border border-slate-100 group-hover:shadow-md transition-shadow duration-200',
           expanded ? 'w-16 h-16 p-3' : 'w-full py-4 px-6'
         )}>
-          <img
-            src={method.icon}
-            alt={method.name}
+          <PaymentLogo
+            methodId={method.id}
+            fallbackSrc={method.icon}
             className={cn(
               'object-contain group-hover:scale-105 transition-transform duration-200',
               expanded
@@ -1149,9 +1150,9 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
                     whileTap={{ scale: 0.95 }}
                   >
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <img
-                        src={method.icon}
-                        alt={method.name}
+                      <PaymentLogo
+                        methodId={method.id}
+                        fallbackSrc={method.icon}
                         className="max-w-8 max-h-8 sm:max-w-10 sm:max-h-10 object-contain filter group-hover:scale-110 transition-transform duration-200"
                       />
                     </div>
@@ -2068,12 +2069,12 @@ const PaymentMethodCard: React.FC<PaymentMethodCardProps> = ({
             'relative bg-gradient-to-br from-white to-slate-50/80 rounded-2xl shadow-xl ring-1 ring-slate-200/50 group-hover:shadow-2xl transition-all duration-300 flex items-center justify-center',
             expanded ? 'w-16 h-16 p-4' : 'px-4 py-6 sm:px-6 sm:py-8 w-full h-full'
           )}>
-            <img
-              src={method.icon}
-              alt={method.name}
+            <PaymentLogo
+              methodId={method.id}
+              fallbackSrc={method.icon}
               className={cn(
                 'object-contain filter group-hover:scale-105 transition-transform duration-300',
-                expanded 
+                expanded
                   ? (method.id === 'binance' ? 'max-w-12 max-h-12' : 'max-w-8 max-h-8')
                   : (method.id === 'binance' ? 'max-w-full max-h-[100px] sm:max-h-[120px]' : 'max-w-full max-h-[60px] sm:max-h-[80px]')
               )}
