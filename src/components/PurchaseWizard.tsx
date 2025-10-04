@@ -1437,6 +1437,27 @@ const PurchaseWizard: React.FC<PurchaseWizardProps> = React.memo(({
                                           </div>
                                         </div>
 
+                                        {/* QR Code Section */}
+                                        {selectedMethod.qrCode && (
+                                          <div className="mt-6 space-y-3">
+                                            <div className="text-center">
+                                              <p className="text-sm font-semibold text-emerald-700 mb-4 flex items-center justify-center gap-2">
+                                                <Smartphone size={16} className="text-yellow-600" />
+                                                Escanea el código QR desde tu app Binance
+                                              </p>
+                                              <div className="inline-block bg-white p-4 rounded-2xl shadow-xl border-2 border-yellow-400/40 ring-2 ring-yellow-300/20">
+                                                <img
+                                                  src={selectedMethod.qrCode}
+                                                  alt="Binance Pay QR Code"
+                                                  className="w-48 h-48 sm:w-56 sm:h-56 object-contain rounded-lg"
+                                                />
+                                              </div>
+                                              <p className="text-xs text-slate-600 mt-3 font-medium">
+                                                O copia el email manualmente arriba ☝️
+                                              </p>
+                                            </div>
+                                          </div>
+                                        )}
 
                                         <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
                                           <p className="text-sm text-emerald-800 font-medium">
@@ -2125,6 +2146,56 @@ const PaymentMethodCard: React.FC<PaymentMethodCardProps> = ({
                   Selecciona tu criptomoneda preferida:
                 </div>
               </div>
+
+              {/* QR Code Section - Prominent Display */}
+              {method.qrCode && (
+                <div className="mb-8 p-6 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100 rounded-3xl border-2 border-yellow-300/60 shadow-2xl ring-2 ring-yellow-200/40">
+                  <div className="flex flex-col lg:flex-row items-center gap-6">
+                    <div className="flex-1 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl shadow-lg">
+                          <Smartphone size={20} className="text-white" />
+                        </div>
+                        <h5 className="text-lg font-black text-yellow-900">
+                          Escanea con Binance Pay
+                        </h5>
+                      </div>
+                      <div className="space-y-2 text-sm text-yellow-800">
+                        <p className="flex items-start gap-2">
+                          <span className="text-yellow-600 font-bold">1.</span>
+                          <span>Abre tu app de <strong>Binance</strong></span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                          <span className="text-yellow-600 font-bold">2.</span>
+                          <span>Ve a <strong>Binance Pay</strong></span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                          <span className="text-yellow-600 font-bold">3.</span>
+                          <span>Escanea este código QR</span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                          <span className="text-yellow-600 font-bold">4.</span>
+                          <span>Transfiere el monto exacto mostrado abajo</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <div className="bg-white p-5 rounded-2xl shadow-2xl border-3 border-yellow-400/50 ring-4 ring-yellow-300/30">
+                        <img
+                          src={method.qrCode}
+                          alt="Binance Pay QR Code"
+                          className="w-52 h-52 object-contain rounded-xl"
+                        />
+                        <div className="mt-3 text-center">
+                          <p className="text-xs font-bold text-yellow-700 bg-yellow-100 px-3 py-1.5 rounded-full inline-block">
+                            📱 Listo para escanear
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* 🔥 RECOMENDADAS - Enhanced Section */}
               <div className="mb-8 p-5 bg-gradient-to-br from-red-50 via-orange-50 to-pink-50 rounded-3xl border-2 border-red-200/70 shadow-xl ring-2 ring-red-100/50">
